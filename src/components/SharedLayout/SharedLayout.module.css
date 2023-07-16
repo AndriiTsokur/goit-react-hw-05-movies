@@ -1,0 +1,16 @@
+header {
+	padding-block: 10px;
+	box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.nav_list {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+
+	height: 20px;
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
+}

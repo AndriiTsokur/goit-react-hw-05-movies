@@ -7,20 +7,45 @@ const fetchOptions = {
 	},
 };
 
-const API_URL = 'https://api.themoviedb.org/3/';
-export const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/original';
+const API_URL = 'https://api.themoviedb.org/3';
+export const PICTS_BASE_URL = 'https://image.tmdb.org/t/p/original';
 
 const queries = {
-	trending: API_URL + 'trending/movie/day?language=en-US',
-	movieDetails: API_URL + 'movie/',
+	trending: `${API_URL}/trending/movie/day?language=en-US`,
+	// trending: API_URL + 'trending/movie/day?language=en-US',
+	search: `${API_URL}/search/movie`,
+	other: `${API_URL}/movie/`,
+	// other: API_URL + 'movie/',
 };
 
 const fetchData = async (option, id) => {
-	const resp = await fetch(queries[option] + id, fetchOptions);
+	let resp = '';
+
+	switch (option) {
+		case 'trending':
+			resp = await fetch(queries[option], fetchOptions);
+			break;
+
+		case 'details':
+			resp = await fetch(queries.other + id, fetchOptions);
+			break;
+
+		case 'search':
+			resp = await fetch(`${queries[option]}?query=${id}`, fetchOptions);
+			break;
+
+		default:
+			resp = await fetch(queries.other + id + `/${option}`, fetchOptions);
+			break;
+	}
+
 	return resp.json();
 };
 
 export default fetchData;
 
-// https://api.themoviedb.org/3/trending/movie/
-// https://api.themoviedb.org/3/movie/
+// Trending Movies - https://api.themoviedb.org/3/trending/movie/
+// Movie Details - https://api.themoviedb.org/3/movie/
+// Movie Reviews - https://api.themoviedb.org/3/movie/{movie_id}/reviews
+// Movie Credits - https://api.themoviedb.org/3/movie/{movie_id}/credits
+// Search Movie - https://api.themoviedb.org/3/search/movie

@@ -1,0 +1,7 @@
+.movies_item:not(:last-child) {
+	margin-bottom: 7px;
+}
+
+.movie_year {
+	font-weight: 200;
+}

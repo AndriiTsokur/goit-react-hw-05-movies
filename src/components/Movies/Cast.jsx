@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'components/Loader/Loader';
 import fetchData, { PICTS_THUMB_BASE_URL } from 'utils/api';
+import scrollSectionToTop from 'utils/scrollSectionToTop';
 import css from './Cast.module.css';
 
 const Cast = () => {
@@ -40,6 +41,10 @@ const Cast = () => {
 
 		getData('credits', movieId);
 	}, [movieId, errorMsg]);
+
+	useEffect(() => {
+		!isLoading && scrollSectionToTop();
+	}, [isLoading]);
 
 	return (
 		<section>

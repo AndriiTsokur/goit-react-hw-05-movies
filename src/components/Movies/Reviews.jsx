@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Loader from 'components/Loader/Loader';
 import fetchData from 'utils/api';
+import scrollSectionToTop from 'utils/scrollSectionToTop';
 import css from './Reviews.module.css';
 
 const Reviews = () => {
@@ -31,6 +32,10 @@ const Reviews = () => {
 
 		getData('reviews', movieId);
 	}, [movieId, errorMsg]);
+
+	useEffect(() => {
+		!isLoading && scrollSectionToTop();
+	}, [isLoading]);
 
 	return (
 		<section>

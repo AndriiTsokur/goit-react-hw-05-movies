@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import Loader from 'components/Loader/Loader';
 import fetchData from 'utils/api';
 import css from './MoviesPage.module.css';
 
@@ -7,6 +8,8 @@ const MoviesPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [searchResults, setSerachResults] = useState([]);
 	const [errorMsg, setErrorMsg] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
+	const [resultIsVisible, setResultIsVisible] = useState(true);
 	const query = searchParams.get('query');
 	const location = useLocation();
 
@@ -15,11 +18,17 @@ const MoviesPage = () => {
 
 		const getData = async (option, selector) => {
 			try {
+				setIsLoading(true);
+				setResultIsVisible(false);
+
 				const { results } = await fetchData(option, selector);
 				setSerachResults(results);
 			} catch (error) {
 				setErrorMsg(error.message);
 				console.log(errorMsg);
+			} finally {
+				setIsLoading(false);
+				setResultIsVisible(true);
 			}
 		};
 
@@ -55,7 +64,9 @@ const MoviesPage = () => {
 						<p>Something wrong. An error occured: {errorMsg}</p>
 					)}
 
-					{query && searchResults.length === 0 ? (
+					{isLoading && <Loader />}
+
+					{resultIsVisible && query && searchResults.length === 0 ? (
 						<p>Requested movie "{query}" is absent in the database</p>
 					) : (
 						<ul>

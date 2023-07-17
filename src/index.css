@@ -51,13 +51,14 @@ img {
 }
 
 input {
-	width: 200px;
+	min-width: 200px;
 	height: 28px;
-	margin-right: 10px;
+	/* margin-right: 10px; */
 	padding: 0 10px;
 
 	font-size: inherit;
 	letter-spacing: 1px;
+	text-align: center;
 
 	border: none;
 	border-radius: 7px;
@@ -66,12 +67,15 @@ input {
 	outline: none;
 
 	&::placeholder {
+		text-align: center;
 		color: #ffffff;
 	}
 }
 
 main {
-	padding-bottom: 40px;
+	width: 100%;
+	margin-top: 20px;
+	padding-bottom: 20px;
 }
 
 p,
@@ -82,4 +86,14 @@ li {
 
 .container {
 	padding-inline: 20px;
+}
+
+@media screen and (min-width: 550px) {
+	input {
+		text-align: left;
+
+		&::placeholder {
+			text-align: left;
+		}
+	}
 }

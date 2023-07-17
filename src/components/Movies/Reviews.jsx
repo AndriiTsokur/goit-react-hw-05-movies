@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Loader from 'components/Loader/Loader';
 import fetchData from 'utils/api';
 import css from './Reviews.module.css';
 
@@ -8,15 +9,23 @@ const Reviews = () => {
 
 	const [reviews, setReviews] = useState([]);
 	const [errorMsg, setErrorMsg] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
+	const [resultIsVisible, setResultIsVisible] = useState(true);
 
 	useEffect(() => {
 		const getData = async (option, selector) => {
 			try {
+				setIsLoading(true);
+				setResultIsVisible(false);
+
 				const movieReviews = await fetchData(option, selector);
 				setReviews(movieReviews.results);
 			} catch (error) {
 				setErrorMsg(error.message);
 				console.log(errorMsg);
+			} finally {
+				setIsLoading(false);
+				setResultIsVisible(true);
 			}
 		};
 
@@ -31,7 +40,9 @@ const Reviews = () => {
 				<p>Something wrong. An error occured: {errorMsg}</p>
 			)}
 
-			{reviews.length !== 0 && (
+			{isLoading && <Loader />}
+
+			{reviews.length !== 0 ? (
 				<ul className={css.reviews__list}>
 					{reviews.map(({ id, author, content }) => {
 						return (
@@ -42,10 +53,10 @@ const Reviews = () => {
 						);
 					})}
 				</ul>
-			)}
-
-			{reviews.length === 0 && (
-				<p>There are no comments for this movie yet. Come back later.</p>
+			) : (
+				resultIsVisible && (
+					<p>There are no comments for this movie yet. Come back later.</p>
+				)
 			)}
 		</section>
 	);

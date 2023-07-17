@@ -8,7 +8,8 @@ const fetchOptions = {
 };
 
 const API_URL = 'https://api.themoviedb.org/3';
-export const PICTS_BASE_URL = 'https://image.tmdb.org/t/p/original';
+export const PICTS_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+export const PICTS_THUMB_BASE_URL = 'https://image.tmdb.org/t/p/w185';
 
 const queries = {
 	trending: `${API_URL}/trending/movie/day?language=en-US`,

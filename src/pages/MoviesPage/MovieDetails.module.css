@@ -1,11 +1,13 @@
-.button_back {
-	margin-top: 20px;
-}
-
 .movie_info__wrapper {
 	display: flex;
+	flex-direction: column;
 	gap: 30px;
 	margin-bottom: 20px;
+}
+
+.movie_poster {
+	min-width: 250px;
+	height: 100%;
 }
 
 .movie__overview {
@@ -19,6 +21,7 @@
 .additional__wrapper {
 	display: flex;
 	gap: 20px;
+	align-items: flex-end;
 	margin-bottom: 30px;
 }
 
@@ -35,4 +38,18 @@
 	padding: 0;
 
 	list-style: none;
+}
+
+@media screen and (min-width: 550px) {
+	.movie_info__wrapper {
+		flex-direction: row;
+	}
+
+	.movie_poster {
+		min-width: 300px;
+	}
+
+	.additional__wrapper {
+		align-items: flex-start;
+	}
 }

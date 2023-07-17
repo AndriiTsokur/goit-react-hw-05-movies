@@ -6,6 +6,7 @@ import {
 	useLocation,
 	useParams,
 } from 'react-router-dom';
+import Loader from 'components/Loader/Loader';
 import fetchData, { PICTS_BASE_URL } from 'utils/api';
 import clearFocus from 'utils/clearFocus';
 import css from './MovieDetails.module.css';
@@ -14,17 +15,22 @@ import posterAbsent from '../../img/poster_absent.jpg';
 const MovieDetails = () => {
 	const [details, setDetails] = useState({});
 	const [errorMsg, setErrorMsg] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 	const { movieId } = useParams();
 	const location = useLocation();
 
 	useEffect(() => {
 		const getData = async (option, selector) => {
 			try {
+				setIsLoading(true);
+
 				const movieDetails = await fetchData(option, selector);
 				setDetails(movieDetails);
 			} catch (error) {
 				setErrorMsg(error.message);
 				console.log(errorMsg);
+			} finally {
+				setIsLoading(false);
 			}
 		};
 
@@ -51,14 +57,14 @@ const MovieDetails = () => {
 		<main>
 			<div className="container">
 				<Link to={location.state?.from}>
-					<button className={css.button_back} type="button">
-						Go Back
-					</button>
+					<button type="button">Go Back</button>
 				</Link>
 
 				{errorMsg !== null && (
 					<p>Something wrong. An error occured: {errorMsg}</p>
 				)}
+
+				{isLoading && <Loader />}
 
 				{Object.keys(details).length > 0 && (
 					<article>
@@ -70,8 +76,8 @@ const MovieDetails = () => {
 						</h2>
 						<div className={css.movie_info__wrapper}>
 							<img
+								className={css.movie_poster}
 								src={poster_path ? PICTS_BASE_URL + poster_path : posterAbsent}
-								width="300"
 								alt={title}
 							/>
 							<div>

@@ -1,7 +1,19 @@
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
 .movies_item:not(:last-child) {
 	margin-bottom: 7px;
 }
 
 .movie_year {
 	font-weight: 200;
+}
+
+@media screen and (min-width: 550px) {
+	form {
+		flex-direction: row;
+	}
 }

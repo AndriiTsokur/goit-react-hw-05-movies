@@ -13,10 +13,8 @@ export const PICTS_THUMB_BASE_URL = 'https://image.tmdb.org/t/p/w185';
 
 const queries = {
 	trending: `${API_URL}/trending/movie/day?language=en-US`,
-	// trending: API_URL + 'trending/movie/day?language=en-US',
 	search: `${API_URL}/search/movie`,
 	other: `${API_URL}/movie/`,
-	// other: API_URL + 'movie/',
 };
 
 const fetchData = async (option, id) => {

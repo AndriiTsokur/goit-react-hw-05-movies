@@ -1,6 +1,6 @@
 const scrollSectionToTop = () => {
 	const section = document.querySelector('section').getBoundingClientRect();
-	window.scroll({
+	window.scrollTo({
 		top: section.top,
 		left: 0,
 		behaviour: 'smooth',

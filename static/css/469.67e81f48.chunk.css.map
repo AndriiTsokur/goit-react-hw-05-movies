@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/469.67e81f48.chunk.css","mappings":"AAAA,8CACC,iBACD,CAEA,4BACC,eACD","sources":["pages/HomePage/HomePage.module.css"],"sourcesContent":[".movies_item:not(:last-child) {\n\tmargin-bottom: 7px;\n}\n\n.movie_year {\n\tfont-weight: 200;\n}\n"],"names":[],"sourceRoot":""}

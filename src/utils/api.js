@@ -38,6 +38,8 @@ const fetchData = async (option, id) => {
 			break;
 	}
 
+	if (!resp.ok) throw new Error(resp.status);
+
 	return resp.json();
 };
 
